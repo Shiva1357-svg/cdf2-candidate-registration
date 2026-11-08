@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CDF-2 Recruiter Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="page">
+    <header class="brand"><img src="/images/cognizant-logo.png" alt="Cognizant logo"></header>
+    <main class="login-card">
+        <div class="banner">CDF-2 RECRUITER LOGIN</div>
+        <form th:action="@{/login}" method="post" class="login-form">
+            <div class="notice error-notice" th:if="${param.error}">Invalid username or password.</div>
+            <div class="notice success-notice" th:if="${param.logout}">You have been logged out.</div>
+            <label>Username
+                <input type="text" name="username" autocomplete="username" required autofocus>
+            </label>
+            <label>Password
+                <input type="password" name="password" autocomplete="current-password" required>
+            </label>
+            <button class="submit" type="submit">LOGIN</button>
+        </form>
+    </main>
+</div>
+</body>
+</html>

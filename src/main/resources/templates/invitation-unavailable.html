@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CDF-2 Invitation Unavailable</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="success">
+    <h1>CDF-2 link unavailable</h1>
+    <p th:if="${invitationMessage}" th:text="${invitationMessage}"></p>
+    <p th:unless="${invitationMessage}">This invitation link is invalid, expired, or has already been submitted.</p>
+    <p>Please contact your recruiter and request a new invitation if required.</p>
+</main>
+</body>
+</html>

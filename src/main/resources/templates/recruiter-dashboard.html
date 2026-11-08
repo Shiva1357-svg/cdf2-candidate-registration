@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CDF-2 Recruiter Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="page">
+    <header class="brand"><img src="/images/cognizant-logo.png" alt="Cognizant logo"></header>
+    <main class="form-shell recruiter-shell">
+        <div class="banner">CDF-2 RECRUITER PORTAL</div>
+        <div class="recruiter-content">
+            <div class="dashboard-heading">
+                <div>
+                    <h1>Candidate Invitations</h1>
+                    <p>Create a unique CDF-2 link and share it with a candidate.</p>
+                </div>
+                <form th:action="@{/logout}" method="post">
+                    <button class="secondary" type="submit">Logout</button>
+                </form>
+            </div>
+
+            <div class="notice success-notice" th:if="${successMessage}" th:text="${successMessage}"></div>
+            <div class="notice error-notice" th:if="${invitationError}" th:text="${invitationError}"></div>
+
+            <section class="invite-card">
+                <h2>Create Candidate Invitation</h2>
+                <form th:action="@{/recruiter/invitations}" th:object="${invitationRequest}" method="post">
+                    <div class="grid recruiter-grid">
+                        <label>Candidate ID *
+                            <input th:field="*{candidateId}" placeholder="e.g. CDF2-2026-0002" required>
+                            <small th:errors="*{candidateId}"></small>
+                        </label>
+                        <label>Candidate Email ID *
+                            <input type="email" th:field="*{candidateEmail}" placeholder="candidate@example.com" required>
+                            <small th:errors="*{candidateEmail}"></small>
+                        </label>
+                    </div>
+                    <p class="help-text">The invitation link expires after 7 days and can be submitted once.</p>
+                    <button class="submit" type="submit">GENERATE CDF-2 LINK</button>
+                </form>
+            </section>
+
+            <section class="generated-card" th:if="${generatedLink}">
+                <h2>Candidate Link</h2>
+                <p>Share this unique link with the candidate:</p>
+                <div class="copy-row">
+                    <input id="generatedLink" type="text" th:value="${generatedLink}" readonly>
+                    <button type="button" class="secondary" onclick="copyInvitationLink()">Copy Link</button>
+                </div>
+            </section>
+
+            <section class="invitation-list">
+                <h2>Invitation History</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Candidate ID</th>
+                            <th>Candidate Email</th>
+                            <th>Created</th>
+                            <th>Expires</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="inv : ${invitations}">
+                            <td th:text="${inv.candidateId}"></td>
+                            <td th:text="${inv.candidateEmail}"></td>
+                            <td th:text="${#temporals.format(inv.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(inv.expiresAt, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td><span class="status" th:classappend="${inv.status == 'COMPLETED' ? ' status-complete' : (inv.status == 'EXPIRED' ? ' status-expired' : ' status-pending')}" th:text="${inv.status}"></span></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(invitations)}">
+                            <td colspan="5" class="empty-row">No candidate invitations created yet.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+<script>
+function copyInvitationLink() {
+    const field = document.getElementById('generatedLink');
+    field.select();
+    field.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(field.value)
+        .then(() => alert('Candidate link copied.'))
+        .catch(() => alert('Please copy the link manually.'));
+}
+</script>
+</body>
+</html>
