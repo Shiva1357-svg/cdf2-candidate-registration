@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candidate Declaration Form-2</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/css/tom-select.css">
+</head>
+<body>
+<div class="page">
+    <header class="brand"><img src="/images/cognizant-logo.png" alt="Cognizant logo"></header>
+
+    <div class="form-shell">
+        <div class="banner">CANDIDATE DECLARATION FORM-2 (CDF-2)</div>
+
+        <form th:action="@{/submit}" th:object="${candidateForm}" method="post">
+            <section>
+                <h3>Candidate Details</h3>
+                <div class="grid">
+                    <label>Candidate ID *
+                        <input th:field="*{candidateId}" readonly aria-readonly="true"
+                               class="readonly-field" placeholder="To be assigned by administrator">
+                        <small th:if="${candidateIdError != null}" class="error"
+                               th:text="${candidateIdError}"></small>
+                        <small th:if="${candidateIdAssigned == false}">
+                            Candidate ID will be provided by the administrator.
+                        </small>
+                    </label>
+
+                    <label>Legal First Name * <em>(as per PAN card or passport)</em>
+                        <input th:field="*{firstName}" required>
+                        <small th:errors="*{firstName}"></small>
+                    </label>
+
+                    <label>Middle Name
+                        <input th:field="*{middleName}">
+                    </label>
+
+                    <label>Legal Last Name * <em>(as per PAN card or passport)</em>
+                        <input th:field="*{lastName}" required>
+                        <small th:errors="*{lastName}"></small>
+                    </label>
+
+                    <label>Gender *
+                        <select th:field="*{gender}" required>
+                            <option value="">Select option</option>
+                            <option th:each="v : ${genders}" th:value="${v}" th:text="${v}"></option>
+                        </select>
+                        <small th:errors="*{gender}"></small>
+                    </label>
+
+                    <label>Date of Birth * <em>(as per PAN card or passport)</em>
+                        <input type="date" th:field="*{dateOfBirth}" required>
+                        <small th:errors="*{dateOfBirth}"></small>
+                    </label>
+
+                    <label>Mobile Number *
+                        <input th:field="*{mobileNumber}" maxlength="10" inputmode="numeric" required>
+                        <small th:errors="*{mobileNumber}"></small>
+                    </label>
+
+                    <label>Email ID *
+                        <input type="email" th:field="*{email}" required>
+                        <small th:errors="*{email}"></small>
+                    </label>
+
+                    <label>PAN Number *
+                        <input th:field="*{panNumber}" maxlength="10" style="text-transform:uppercase" required>
+                        <small th:errors="*{panNumber}"></small>
+                    </label>
+
+                    <fieldset>
+                        <legend>Specially Challenged? *</legend>
+                        <label class="radio">
+                            <input type="radio" th:field="*{speciallyChallenged}" value="true"> Yes
+                        </label>
+                        <label class="radio">
+                            <input type="radio" th:field="*{speciallyChallenged}" value="false"> No
+                        </label>
+                    </fieldset>
+
+                    <label>Nationality *
+                        <select th:field="*{nationality}" required>
+                            <option value="">Select option</option>
+                            <option th:each="v : ${nationalities}" th:value="${v}" th:text="${v}"></option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <section>
+                <h3>Education Details</h3>
+                <div class="grid">
+                    <label>Highest Education Qualification *
+                        <select th:field="*{highestQualification}" required>
+                            <option value="">Select option</option>
+                            <option th:each="v : ${qualifications}" th:value="${v}" th:text="${v}"></option>
+                        </select>
+                        <small th:errors="*{highestQualification}"></small>
+                    </label>
+                </div>
+            </section>
+
+            <section>
+                <h3>Employment Details</h3>
+
+                <div class="grid">
+                    <label>Are you currently employed? *
+                        <select th:field="*{currentlyEmployed}" required>
+                            <option value="">Select option</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </label>
+
+                    <label>Do you have any previous employment experience? *
+                        <select id="previousExperience" th:field="*{previousExperience}" required>
+                            <option value="">Select option</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div id="employmentRows">
+                    <div class="employment-row"
+                         th:each="employment, stat : *{employments}">
+                        <div class="employment-grid">
+                            <label>
+                                <span class="field-title">Previous Employment - <span th:text="${stat.count}">1</span> *</span>
+                                <select class="employer-select"
+                                        th:field="*{employments[__${stat.index}__].employerName}">
+                                    <option value="">Employer's Name</option>
+                                    <optgroup label="Indian IT Companies">
+                                        <option value="Tata Consultancy Services (TCS)">Tata Consultancy Services (TCS)</option>
+                                        <option value="Infosys">Infosys</option>
+                                        <option value="Wipro">Wipro</option>
+                                        <option value="HCLTech">HCLTech</option>
+                                        <option value="Tech Mahindra">Tech Mahindra</option>
+                                        <option value="LTIMindtree">LTIMindtree</option>
+                                        <option value="Mphasis">Mphasis</option>
+                                        <option value="Persistent Systems">Persistent Systems</option>
+                                        <option value="Coforge">Coforge</option>
+                                        <option value="Birlasoft">Birlasoft</option>
+                                        <option value="KPIT Technologies">KPIT Technologies</option>
+                                        <option value="Zensar Technologies">Zensar Technologies</option>
+                                        <option value="Sonata Software">Sonata Software</option>
+                                        <option value="Cyient">Cyient</option>
+                                        <option value="Tata Elxsi">Tata Elxsi</option>
+                                        <option value="Mastek">Mastek</option>
+                                        <option value="Newgen Software">Newgen Software</option>
+                                        <option value="Happiest Minds Technologies">Happiest Minds Technologies</option>
+                                        <option value="Intellect Design Arena">Intellect Design Arena</option>
+                                        <option value="Nucleus Software">Nucleus Software</option>
+                                        <option value="3i Infotech">3i Infotech</option>
+                                        <option value="Saksoft">Saksoft</option>
+                                        <option value="R Systems">R Systems</option>
+                                    </optgroup>
+                                    <option value="OTHERS">OTHERS</option>
+                                </select>
+                            </label>
+
+                            <label>From Date (MM/DD/YY)
+                                <input type="date"
+                                       th:field="*{employments[__${stat.index}__].fromDate}">
+                            </label>
+
+                            <label>To Date
+                                <input type="date"
+                                       th:field="*{employments[__${stat.index}__].toDate}">
+                            </label>
+
+                            <label>Reason For Leaving
+                                <select th:field="*{employments[__${stat.index}__].reasonForLeaving}">
+                                    <option value="">Select option</option>
+                                    <option th:each="v : ${leavingReasons}" th:value="${v}" th:text="${v}"></option>
+                                </select>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="error"
+                     th:if="${employmentError != null}"
+                     th:text="${employmentError}"></div>
+            </section>
+
+            <div class="submit-area">
+                <button class="submit" type="submit">SUBMIT</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
+<script th:src="@{/js/cdf2.js}"></script>
+</body>
+</html>

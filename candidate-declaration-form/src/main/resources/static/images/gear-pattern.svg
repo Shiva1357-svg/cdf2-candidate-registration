@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="300" viewBox="0 0 360 300">
+<g fill="none" stroke="#d9dadd" stroke-width="2.2" opacity=".72">
+ <g transform="translate(65 65)"><circle r="34"/><circle r="20"/><path d="M-7-47h14v13h-14zM-7 34h14v13h-14zM-47-7h13v14h-13zM34-7h13v14h-13zM-37-37l10-10 9 9-10 10zM18 18l10 10-9 9-10-10zM18-18l10-10 9 9-10 10zM-37 37l-9-9 10-10 9 9z"/></g>
+ <g transform="translate(245 45)"><circle r="43"/><circle r="28"/><circle r="13"/><path d="M-8-58h16v15H-8zM-8 43h16v15H-8zM-58-8h15v16h-15zM43-8h15v16H43zM-44-44l11-11 11 11-11 11zM22 22l11 11-11 11-11-11zM22-22l11-11 11 11-11 11zM-44 44l-11-11 11-11 11 11z"/></g>
+ <g transform="translate(160 220)"><circle r="38"/><circle r="23"/><path d="M-7-52h14v14H-7zM-7 38h14v14H-7zM-52-7h14v14h-14zM38-7h14v14H38zM-39-39l10-10 10 10-10 10zM19 19l10 10-10 10-10-10zM19-19l10-10 10 10-10 10zM-39 39l-10-10 10-10 10 10z"/></g>
+ <g transform="translate(330 210)"><circle r="28"/><circle r="15"/><path d="M-6-39h12v11H-6zM-6 28h12v11H-6zM-39-6h11v12h-11zM28-6h11v12H28z"/></g>
+ <g transform="translate(10 275)"><circle r="25"/><circle r="12"/></g>
+ <g transform="translate(340 5)"><circle r="24"/><circle r="12"/></g>
+</g></svg>
